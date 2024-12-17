@@ -1,18 +1,85 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.zhangchengk.panda</id>
-    <name>panda</name>
+    <id>com.zhangchengk.panda</id>
+    <name>Panda</name>
     <vendor>zhangchengk</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <resource-bundle>messages.Panda</resource-bundle>
+
+    <actions>
+        <action id="com.zhangchengk.panda.study.action.PopupDialogAction"
+                class="com.zhangchengk.panda.study.action.PopupDialogAction"
+                text="Action Basics Plugin: Pop Dialog Action"
+                description="SDK action example"
+                icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <override-text place="MainMenu" text="Pop Dialog Action"/>
+            <keyboard-shortcut first-keystroke="control alt A" second-keystroke="C" keymap="$default"/>
+            <mouse-shortcut keystroke="control button3 doubleClick" keymap="$default"/>
+        </action>
+
+        <group id="com.zhangchengk.panda.study.action.GroupedActions"
+               text="Static Grouped Actions"
+               description="SDK statically grouped action example"
+               popup="true" icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.zhangchengk.panda.study.action.PopupDialogAction"/>
+            <action id="com.zhangchengk.panda.study.action.GroupPopDialogAction" class="com.zhangchengk.panda.study.action.PopupDialogAction"
+                    text="A Group Action" description="SDK static grouped action example"
+                    icon="SdkIcons.Sdk_default_icon">
+            </action>
+        </group>
+
+        <group id="com.zhangchengk.panda.study.action.CustomDefaultActionGroup"
+               class="com.zhangchengk.panda.study.action.CustomDefaultActionGroup"
+               popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <action id="com.zhangchengk.panda.study.action.CustomGroupedAction" class="com.zhangchengk.panda.study.action.PopupDialogAction"
+                    icon="SdkIcons.Sdk_default_icon"/>
+        </group>
+
+        <group id="com.zhangchengk.panda.study.action.DynamicActionGroup" class="com.zhangchengk.panda.study.action.DynamicActionGroup"
+               popup="true" text="Dynamically Grouped Actions" description="SDK dynamically grouped action example"
+               icon="SdkIcons.Sdk_default_icon">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.zhangchengk.panda.study.action.GroupedActions"/>
+        </group>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.zhangchengk.panda.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-    </extensions>
+        <!--
+          Extend the IntelliJ Platform local inspection type and connect it to the implementation class in this plugin.
+          <localInspection> type element is applied within the scope of a file under edit.
+          It is preferred over <inspectionToolProvider>
+          @see com.intellij.codeInspection.InspectionProfileEntry
 
-    <applicationListeners>
-        <listener class="com.github.zhangchengk.panda.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+          Attributes:
+            - language - inspection language ID
+            - shortName - not specified, will be computed by the underlying implementation classes
+            - bundle - name of the message bundle for the "key" attribute
+            - key - the key of the message to be shown in the Settings | Editor | Inspections panel
+            - groupPath - defines the outermost grouping for this inspection in
+                the Settings | Editor | Inspections panel. Not localized.
+            - groupBundle - the name of a message bundle file to translate groupKey
+                In this case, reuse an IntelliJ Platform bundle file from intellij.platform.resources.en
+            - groupKey - the key to use for translation subgroup name using groupBundle file.
+                In this case, reuse the IntelliJ Platform subcategory "Probable bugs"
+            - enabledByDefault - inspection state when the Inspections panel is created.
+            - level - the default level of error found by this inspection, e.g. INFO, ERROR, etc.
+                @see com.intellij.codeHighlighting.HighlightDisplayLevel
+            - implementationClass= the fully-qualified name of the inspection implementation class
+        -->
+        <localInspection language="JAVA"
+                         bundle="messages.Panda"
+                         key="inspection.comparing.string.references.display.name"
+                         groupPath="Java"
+                         groupBundle="messages.InspectionsBundle"
+                         groupKey="group.names.probable.bugs"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.zhangchengk.panda.study.inspection.ComparingStringReferencesInspection"
+                         hasStaticDescription="true"
+        />
+    </extensions>
 </idea-plugin>

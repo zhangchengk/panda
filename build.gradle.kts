@@ -4,6 +4,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java") // Java support
+    // id("org.jetbrains.intellij") version "1.17.4"
     alias(libs.plugins.kotlin) // Kotlin support
     alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
@@ -17,6 +18,10 @@ version = providers.gradleProperty("pluginVersion").get()
 // Set the JVM language level used to build the project.
 kotlin {
     jvmToolchain(17)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 // Configure project's dependencies
@@ -49,6 +54,12 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 }
+
+// See https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
+//intellij {
+//    version.set("2023.3.7")
+//    plugins.set(listOf("com.intellij.java"))
+//}
 
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
 intellijPlatform {
