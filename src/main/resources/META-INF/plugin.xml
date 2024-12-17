@@ -6,6 +6,7 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.java</depends>
 
     <resource-bundle>messages.Panda</resource-bundle>
 
@@ -14,7 +15,7 @@
                 class="com.zhangchengk.panda.study.action.PopupDialogAction"
                 text="Action Basics Plugin: Pop Dialog Action"
                 description="SDK action example"
-                icon="SdkIcons.Sdk_default_icon">
+                icon="com.zhangchengk.panda.study.action.SdkIcons.Sdk_default_icon">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <override-text place="MainMenu" text="Pop Dialog Action"/>
             <keyboard-shortcut first-keystroke="control alt A" second-keystroke="C" keymap="$default"/>
@@ -24,11 +25,11 @@
         <group id="com.zhangchengk.panda.study.action.GroupedActions"
                text="Static Grouped Actions"
                description="SDK statically grouped action example"
-               popup="true" icon="SdkIcons.Sdk_default_icon">
+               popup="true" icon="com.zhangchengk.panda.study.action.SdkIcons.Sdk_default_icon">
             <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.zhangchengk.panda.study.action.PopupDialogAction"/>
             <action id="com.zhangchengk.panda.study.action.GroupPopDialogAction" class="com.zhangchengk.panda.study.action.PopupDialogAction"
                     text="A Group Action" description="SDK static grouped action example"
-                    icon="SdkIcons.Sdk_default_icon">
+                    icon="com.zhangchengk.panda.study.action.SdkIcons.Sdk_default_icon">
             </action>
         </group>
 
@@ -37,12 +38,12 @@
                popup="true">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <action id="com.zhangchengk.panda.study.action.CustomGroupedAction" class="com.zhangchengk.panda.study.action.PopupDialogAction"
-                    icon="SdkIcons.Sdk_default_icon"/>
+                    icon="com.zhangchengk.panda.study.action.SdkIcons.Sdk_default_icon"/>
         </group>
 
         <group id="com.zhangchengk.panda.study.action.DynamicActionGroup" class="com.zhangchengk.panda.study.action.DynamicActionGroup"
                popup="true" text="Dynamically Grouped Actions" description="SDK dynamically grouped action example"
-               icon="SdkIcons.Sdk_default_icon">
+               icon="com.zhangchengk.panda.study.action.SdkIcons.Sdk_default_icon">
             <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.zhangchengk.panda.study.action.GroupedActions"/>
         </group>
     </actions>
@@ -81,5 +82,11 @@
                          implementationClass="com.zhangchengk.panda.study.inspection.ComparingStringReferencesInspection"
                          hasStaticDescription="true"
         />
+
+        <intentionAction>
+            <language>JAVA</language> <!-- available in 2022.3 and later -->
+            <className>com.zhangchengk.panda.study.intention.ConditionalOperatorConverter</className>
+            <category>SDK intentions</category>
+        </intentionAction>
     </extensions>
 </idea-plugin>
